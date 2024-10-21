@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:remote_ui/screen_remote_view.dart';
-import 'package:remote_ui/theme_data/theme_dark.dart';
-import 'package:remote_ui/theme_data/theme_light.dart';
+import 'package:remote_ui/views/screen_remote_view.dart';
+import 'package:remote_ui/themes/theme_dark.dart';
+import 'package:remote_ui/themes/theme_light.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Mobile Remote',
-      theme: ThemeLight.themeDark,
+      theme: ThemeLight.themeLight,
       darkTheme: ThemeDark.themeDark,
       themeMode: ThemeMode.dark,
       home: const ScreenRemoteView(),
