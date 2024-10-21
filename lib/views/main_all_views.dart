@@ -26,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
 
     return Scaffold(
       body: Obx(
-            () {
+        () {
           switch (navigationController.currentIndex.value) {
             case 0:
               return RemoteView();
@@ -60,12 +60,12 @@ class _MainScreenState extends State<MainScreen> {
         onTap: (index) {
           navigationController.changeIndex(index);
         },
-        titles: [
+        titles: const [
           'Remote',
           'Mirroring',
           'Apps',
           'Casting',
-          'Setting'
+          'Setting',
         ],
       ),
     );
