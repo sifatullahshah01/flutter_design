@@ -15,31 +15,39 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(
-      const Duration(seconds: 3),
+      const Duration(microseconds: 300),
       () {
         // Navigate to the login screen after delay
-        Get.offAllNamed(AppRoutes.home);
+        Get.offAllNamed(AppRoutes.main);
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Text under the logo
-          Text(
-            'Welcome to Mobile TV REMOTE',
-            style: Theme.of(context).textTheme.displayLarge,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Text under the logo
+              Text(
+                'TV REMOTE',
+                textAlign: TextAlign.center,
+                style: Get.textTheme.displayLarge?.copyWith(letterSpacing: 4),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'Welcome to Mobile TV REMOTE',
+                textAlign: TextAlign.center,
+                style: Get.textTheme.bodyMedium,
+              ),
+            ],
           ),
-          const SizedBox(height: 20),
-          Text(
-            'Welcome to Mobile TV REMOTE',
-            style: Theme.of(context).textTheme.displayLarge,
-          ),
-        ],
+        ),
       ),
     );
   }
