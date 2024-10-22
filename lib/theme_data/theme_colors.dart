@@ -5,6 +5,7 @@ class ThemeLightColors {
   static const onPrimary = Color(0xffFFFFFF);
   static const secondaryColor = Color(0xff1F1F2B); // Accent color for light theme
   static const onSecondary = Color(0xff0A0A0A);
+  static const activeColour = Color(0xffFE6247);
 
   LinearGradient buttonsLight = const LinearGradient(
     colors: [
@@ -20,6 +21,7 @@ class ThemeDarkColors {
   static const secondaryColor = Color(0xFFB4B4B4); // Accent color for dark theme
   static const onSecondary = Color(0xffFFFFFF);
   static const mainShadow = Color(0xffFF8737);
+  static const navbarBackground = Color(0xff1F1F2B);
 
   LinearGradient buttonsDark = const LinearGradient(
     colors: [

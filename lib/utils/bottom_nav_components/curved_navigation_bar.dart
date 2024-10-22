@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-
 import 'nav_button.dart';
 import 'nav_custom_clipper.dart';
 import 'nav_custom_painter.dart';
@@ -67,17 +66,21 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar> with SingleTic
     _startingPos = widget.index / _length;
     _endingIndex = widget.index;
     _animationController = AnimationController(vsync: this, value: _pos);
-    _animationController.addListener(() {
-      setState(() {
-        _pos = _animationController.value;
-        final endingPos = _endingIndex / widget.items.length;
-        final middle = (endingPos + _startingPos) / 2;
-        if ((endingPos - _pos).abs() < (_startingPos - _pos).abs()) {
-          _icon = widget.items[_endingIndex];
-        }
-        _buttonHide = (1 - ((middle - _pos) / (_startingPos - middle)).abs()).abs();
-      });
-    });
+    _animationController.addListener(
+      () {
+        setState(
+          () {
+            _pos = _animationController.value;
+            final endingPos = _endingIndex / widget.items.length;
+            final middle = (endingPos + _startingPos) / 2;
+            if ((endingPos - _pos).abs() < (_startingPos - _pos).abs()) {
+              _icon = widget.items[_endingIndex];
+            }
+            _buttonHide = (1 - ((middle - _pos) / (_startingPos - middle)).abs()).abs();
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -104,6 +107,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar> with SingleTic
   Widget build(BuildContext context) {
     final textDirection = Directionality.of(context);
     final activeColor = widget.activeColor ?? Theme.of(context).primaryColor;
+
     return SizedBox(
       height: widget.height,
       child: LayoutBuilder(
@@ -122,9 +126,9 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar> with SingleTic
                   clipBehavior: Clip.none,
                   alignment: Alignment.bottomCenter,
                   children: <Widget>[
-                    // Central Button
+                    // Central Button (Active Icon)
                     Positioned(
-                      bottom: -40 - (75.0 - widget.height),
+                      bottom: -40 - (55.0 - widget.height),
                       left: textDirection == TextDirection.rtl ? null : _pos * maxWidth,
                       right: textDirection == TextDirection.rtl ? _pos * maxWidth : null,
                       width: maxWidth / _length,
@@ -134,29 +138,28 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar> with SingleTic
                             0,
                             -(1 - _buttonHide) * 60,
                           ),
-                          child: Column(
-                            children: [
-                              Material(
-                                color: widget.buttonBackgroundColor ?? widget.color,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                elevation: 8.0,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: _icon,
-                                ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: widget.buttonBackgroundColor ?? widget.color,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xffFFFFFF).withOpacity(0.35),
+                                  offset: const Offset(0, 0),
+                                  blurRadius: 1.7,
+                                  spreadRadius: 0,
+                                )
+                              ],
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: IconTheme(
+                                data: IconThemeData(color: activeColor // Active icon color
+                                    // Inactive icon color // Inactive icon color
+                                    ),
+                                child: _icon,
                               ),
-                              const SizedBox(height: 5), // Space for the title
-                              Text(
-                                widget.titles[_endingIndex], // Show title below icon
-                                style: TextStyle(
-                                  color: activeColor, // Active color from theme
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
@@ -186,34 +189,54 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar> with SingleTic
                       child: SizedBox(
                         height: 80.0,
                         child: Row(
-                          children: widget.items.asMap().entries.map((entry) {
-                            int index = entry.key;
-                            Widget item = entry.value;
-                            return NavButton(
-                              onTap: (int index) {
-                                _buttonTap(index);
-                              },
-                              position: _pos,
-                              length: _length,
-                              index: index,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  item, // Icon
-                                  Text(
-                                    widget.titles[index], // Title
-                                    style: TextStyle(
-                                      color: index == _endingIndex
-                                          ? activeColor // Active color
-                                          : Colors.grey, // Inactive color
-                                      fontSize: 8,
+                          children: widget.items.asMap().entries.map(
+                            (entry) {
+                              int index = entry.key;
+                              Widget item = entry.value;
+                              return NavButton(
+                                onTap: (int index) {
+                                  _buttonTap(index);
+                                },
+                                position: _pos,
+                                length: _length,
+                                index: index,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    item, // Icon
+                                    const SizedBox(height: 5),
+                                    Text(
+                                      widget.titles[index], // Title
+                                      style: TextStyle(
+                                        color: index == _endingIndex
+                                            ? activeColor // Active title color
+                                            : Colors.grey, // Inactive title color
+                                        fontSize: 11,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }).toList(),
+                                  ],
+                                ),
+                              );
+                            },
+                          ).toList(),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: (_endingIndex / widget.items.length) * MediaQuery.of(context).size.width,
+                      bottom: 0 - (65.0 - widget.height),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width / widget.items.length,
+                        child: Center(
+                          child: Text(
+                            widget.titles[_endingIndex], // Show title for the active button
+                            style: TextStyle(
+                              color: activeColor,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 11,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -229,6 +252,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar> with SingleTic
 
   void setPage(int index) {
     _buttonTap(index);
+    setState(() {});
   }
 
   void _buttonTap(int index) {
@@ -244,5 +268,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar> with SingleTic
       _endingIndex = index;
       _animationController.animateTo(newPosition, duration: widget.animationDuration, curve: widget.animationCurve);
     });
+
+    setState(() {});
   }
 }
