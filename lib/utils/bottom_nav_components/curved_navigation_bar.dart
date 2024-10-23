@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../../theme_data/theme_colors.dart';
 import 'nav_button.dart';
 import 'nav_custom_clipper.dart';
 import 'nav_custom_painter.dart';
@@ -142,6 +143,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar> with SingleTic
                             decoration: BoxDecoration(
                               color: widget.buttonBackgroundColor ?? widget.color,
                               shape: BoxShape.circle,
+                              border: Border.all(color: ThemeLightColors.primary, width: 0.05),
                               boxShadow: [
                                 BoxShadow(
                                   color: const Color(0xffFFFFFF).withOpacity(0.35),
@@ -154,9 +156,9 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar> with SingleTic
                             child: Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: IconTheme(
-                                data: IconThemeData(color: activeColor // Active icon color
-                                    // Inactive icon color // Inactive icon color
-                                    ),
+                                data: IconThemeData(
+                                  color: activeColor, // Active icon color
+                                ),
                                 child: _icon,
                               ),
                             ),

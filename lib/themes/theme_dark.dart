@@ -6,21 +6,21 @@ import '../theme_data/theme_colors.dart';
 class ThemeDark {
   static ThemeData themeDark = ThemeData(
     colorScheme: ColorScheme.fromSeed(
-      seedColor: ThemeDarkColors.primaryColor,
+      seedColor: ThemeDarkColors.primary,
       brightness: Brightness.dark,
-      primary: ThemeDarkColors.primaryColor,
+      primary: ThemeDarkColors.primary,
       onPrimary: ThemeDarkColors.onPrimary,
       secondary: ThemeDarkColors.secondaryColor,
       onSecondary: ThemeDarkColors.onSecondary,
     ),
     useMaterial3: true,
-    scaffoldBackgroundColor: ThemeDarkColors.primaryColor,
+    scaffoldBackgroundColor: ThemeDarkColors.primary,
     appBarTheme: AppBarTheme(
-      backgroundColor: ThemeDarkColors.primaryColor,
+      backgroundColor: ThemeDarkColors.primary,
       elevation: 0,
       centerTitle: true,
       systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
-        statusBarColor: ThemeDarkColors.primaryColor,
+        statusBarColor: ThemeDarkColors.primary,
         systemNavigationBarColor: ThemeDarkColors.onPrimary,
         systemNavigationBarIconBrightness: Brightness.dark,
       ),

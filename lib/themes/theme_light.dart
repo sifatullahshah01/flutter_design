@@ -6,17 +6,17 @@ import '../theme_data/theme_colors.dart';
 class ThemeLight {
   static ThemeData themeLight = ThemeData(
     colorScheme: ColorScheme.fromSeed(
-      seedColor: ThemeLightColors.primaryColor,
+      seedColor: ThemeLightColors.primary,
       brightness: Brightness.light,
-      primary: ThemeLightColors.primaryColor,
+      primary: ThemeLightColors.primary,
       onPrimary: ThemeLightColors.onPrimary,
       secondary: ThemeLightColors.secondaryColor,
       onSecondary: ThemeLightColors.onSecondary,
     ),
     useMaterial3: true,
-    scaffoldBackgroundColor: ThemeLightColors.primaryColor,
+    scaffoldBackgroundColor: ThemeLightColors.primary,
     appBarTheme: AppBarTheme(
-      backgroundColor: ThemeLightColors.primaryColor,
+      backgroundColor: ThemeLightColors.primary,
       elevation: 0,
       centerTitle: true,
       systemOverlayStyle: SystemUiOverlayStyle.light.copyWith(
